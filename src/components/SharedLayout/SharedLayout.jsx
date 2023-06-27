@@ -1,31 +1,42 @@
 import { Suspense } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { Container, NavItem, NavList, Navigation } from './SharedLayout.module';
+import { Outlet } from 'react-router-dom';
+import { TailSpin } from 'react-loader-spinner';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const SharedLayout = () => {
+import { spinStyles } from 'services';
+import {
+  Container,
+  Header,
+  Main,
+  Logo,
+  StyledNavLink,
+  StyledLink,
+} from './SharedLayout.styled';
+import logoImage from '../../images/logo.png';
+
+export default function SharedLayout() {
   return (
-    <Container>
-      <header>
-        <Navigation>
-          <NavList>
-            <NavItem>
-              <Link to="/">
-                Home<span>.</span>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/movies">
-                Movies<span>.</span>
-              </Link>
-            </NavItem>
-          </NavList>
-        </Navigation>
-      </header>
-      <Suspense fallback={<div>Loading page...</div>}>
-        <Outlet />
-      </Suspense>
-    </Container>
-  );
-};
+    <>
+      <Container>
+        <Header>
+          <StyledLink to="/">
+            <Logo src={logoImage} alt="Logo" />
+          </StyledLink>
+          <nav>
+            <StyledNavLink to="/">Home</StyledNavLink>
+            <StyledNavLink to="/movies">Movies</StyledNavLink>
+            <StyledNavLink to="/about">About</StyledNavLink>
+          </nav>
+        </Header>
 
-export default SharedLayout;
+        <Main>
+          <Suspense fallback={<TailSpin {...spinStyles} />}>
+            <Outlet />
+          </Suspense>
+        </Main>
+      </Container>
+      <ToastContainer autoClose={2000} />
+    </>
+  );
+}
