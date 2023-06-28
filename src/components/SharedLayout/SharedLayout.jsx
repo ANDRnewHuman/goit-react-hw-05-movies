@@ -13,7 +13,7 @@ import {
   StyledNavLink,
   StyledLink,
 } from './SharedLayout.styled';
-import logoImage from '../../images/logo.png';
+import logoImage from '../../images/logoo.png';
 
 export default function SharedLayout() {
   return (
